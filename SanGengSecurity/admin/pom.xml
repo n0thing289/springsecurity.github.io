@@ -17,17 +17,17 @@
     </properties>
 
     <dependencies>
-<!--        <dependency>-->
-<!--            <groupId>com.weikai</groupId>-->
-<!--            <artifactId>TokenDemo</artifactId>-->
-<!--            <version>1.0-SNAPSHOT</version>-->
-<!--        </dependency>-->
-
         <dependency>
             <groupId>com.weikai</groupId>
-            <artifactId>SanGengSecurityQuickStart</artifactId>
+            <artifactId>TokenDemo</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+
+<!--        <dependency>-->
+<!--            <groupId>com.weikai</groupId>-->
+<!--            <artifactId>SanGengSecurityQuickStart</artifactId>-->
+<!--            <version>1.0-SNAPSHOT</version>-->
+<!--        </dependency>-->
     </dependencies>
 
     <build>

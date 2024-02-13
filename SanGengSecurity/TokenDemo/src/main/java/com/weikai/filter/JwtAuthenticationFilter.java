@@ -39,6 +39,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         //验证成功存入SecurityContextHolder
         DecodedJWT decode = JWT.decode(token);
         String userid = decode.getClaim("userid").toString();
+        // TODO 权限信息要存入
         UsernamePasswordAuthenticationToken authed = new UsernamePasswordAuthenticationToken(userid, null, null);//细节三个参数,会调用setAuthenticated(true)
         SecurityContextHolder.getContext().setAuthentication(authed);//LocalThread技术, 线程绑定数据
         //TODO 配置这个jwt过滤器, 把它放在UsernamePasswordAuthenticationFilter过滤器之前
