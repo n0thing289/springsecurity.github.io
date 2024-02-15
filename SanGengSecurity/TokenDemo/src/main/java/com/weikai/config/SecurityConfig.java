@@ -27,7 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST,"/login").anonymous()//permitAll()和anonymous()的区别: 前者不管登录与否都可以访问, 后者登录后不允许访问
+                .antMatchers(HttpMethod.POST,"/user/login").anonymous()//permitAll()和anonymous()的区别: 前者不管登录与否都可以访问, 后者登录后不允许访问
                 .anyRequest().authenticated();
 
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

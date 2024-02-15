@@ -6,6 +6,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -40,10 +41,17 @@ public class LoginUser implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if (authorities.isEmpty()) {
-            permissions.forEach(permission -> {
-                authorities.add(new SimpleGrantedAuthority(permission));
-            });
+        if (authorities == null) {
+            //如果authorities没有创建一次
+            authorities = new ArrayList<>();
+            //遍历permissions,取出authority
+            if (permissions.isEmpty()){
+                authorities.add(new SimpleGrantedAuthority("null"));
+            }else{
+                permissions.forEach(permission -> {
+                    authorities.add(new SimpleGrantedAuthority(permission));
+                });
+            }
         }
         return authorities;
     }
