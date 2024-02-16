@@ -11,7 +11,12 @@ public class JWTUtil {
     private static final String sign = "sign";//签名
     private static final long time = 1000 * 60 * 60 * 24L;//持续时间
 
-    public static String getJwtByUserId(String userId){
+    public static String generateJwtByUserIdAndAuthorities() {
+        return "";
+    }
+
+
+    public static String generateJwtByUserId(String userId) {
         //生成token
         String token = JWT.create()
                 .withClaim("userid", userId)
@@ -20,7 +25,7 @@ public class JWTUtil {
         return token;
     }
 
-    public static String generateJwtByUsernameAndPassword(String username,String password) {
+    public static String generateJwtByUsernameAndPassword(String username, String password) {
         //生成token
         String token = JWT.create()
                 .withClaim("username", username)

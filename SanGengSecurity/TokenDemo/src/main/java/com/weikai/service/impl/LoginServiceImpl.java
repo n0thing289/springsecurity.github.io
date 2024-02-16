@@ -32,7 +32,7 @@ public class LoginServiceImpl implements LoginService {
         //认证成功, 使用userid生成token
         LoginUser loginUser = (LoginUser) authed.getPrincipal();
         String userid = loginUser.getUser().getId().toString();
-        String token = JWTUtil.getJwtByUserId(userid);
+        String token = JWTUtil.generateJwtByUserId(userid);
         //返回响应
         return new Result(Code.LOGIN_VERIFY_OK, token, "null");
     }
