@@ -17,6 +17,10 @@ public class LoginUser implements UserDetails {
 
     private List<String> permissions;
 
+    public List<String> getPermissions() {
+        return permissions;
+    }
+
     public LoginUser(User user, List<String> permissions) {
         this.permissions = permissions;
         this.user = user;

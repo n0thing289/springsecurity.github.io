@@ -1,5 +1,6 @@
 package com.weikai.service.impl;
 
+import com.weikai.mapper.MenuMapper;
 import com.weikai.mapper.UserMapper;
 import com.weikai.pojo.LoginUser;
 import com.weikai.pojo.User;
@@ -7,16 +8,22 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.List;
 
 @Service
+@Transactional
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Resource
+    private MenuMapper menuMapper;
+
+    @Resource
     private UserMapper userMapper;
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -26,8 +33,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if(user == null){
             throw new RuntimeException("数据库中查不到此对象:用户名或者密码错误");
         }
-        //TODO 查询权限信息
-        List<String> permissions = Arrays.asList("test", "admin");
+        // 查询权限信息
+//        List<String> permissions = Arrays.asList("test", "admin");
+        List<String> permissions = menuMapper.selectPermissions(user.getId());
 
         //封装成UserDetails, 新建一个pojo类LoginUser
         return new LoginUser(user, permissions);//数据库明文存111需要加{noop} => {noop}111

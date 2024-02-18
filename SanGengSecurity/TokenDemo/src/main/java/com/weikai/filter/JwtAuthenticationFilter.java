@@ -4,8 +4,10 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.weikai.pojo.LoginUser;
 import com.weikai.utils.JWTUtil;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -18,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -37,17 +40,20 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             JWTUtil.verify(token);
         }catch(JWTVerificationException e){
             //验证失败抛出异常
-            throw new RuntimeException("token验证失败");
+            filterChain.doFilter(request,response);
+            return;
         }
 
         //验证成功存入SecurityContextHolder
         DecodedJWT decode = JWT.decode(token);
         String userid = decode.getClaim("userid").toString();
+        List<String> permissions = decode.getClaim("permis").asList(String.class);
         //权限信息要存入
         //TODO 查询权限信息权限信息要存入
-
-        UsernamePasswordAuthenticationToken authed = new UsernamePasswordAuthenticationToken(userid, null,
-                Collections.singletonList(new SimpleGrantedAuthority("test")));//细节三个参数,会调用setAuthenticated(true)
+        Collection<? extends GrantedAuthority> authorities =
+                new LoginUser(null, permissions).getAuthorities();
+        UsernamePasswordAuthenticationToken authed =
+                new UsernamePasswordAuthenticationToken(userid, null, authorities);//细节三个参数,会调用setAuthenticated(true)
         SecurityContextHolder.getContext().setAuthentication(authed);//LocalThread技术, 线程绑定数据
         //配置这个jwt过滤器, 把它放在UsernamePasswordAuthenticationFilter过滤器之前
         System.out.println("token认证成功");

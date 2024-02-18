@@ -19,6 +19,7 @@
         <module>SanGengSecurityQuickStart</module>
         <module>admin</module>
         <module>TokenDemo</module>
+        <module>MyRenZheng</module>
     </modules>
 
     <properties>
@@ -27,6 +28,11 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>

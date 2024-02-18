@@ -15,10 +15,10 @@ public class HelloController {
     UserMapper userMapper;
 
     @RequestMapping("/hello2")
-    @PreAuthorize("hasAnyAuthority('test')")
+    @PreAuthorize("hasAnyAuthority('system:all:all')")
     public String doHello(){
-        User user = userMapper.selectByUsername("root");
-        System.out.println(user);
+//        User user = userMapper.selectByUsername("root");
+//        System.out.println(user);
         return "hello token demo";
     }
 
