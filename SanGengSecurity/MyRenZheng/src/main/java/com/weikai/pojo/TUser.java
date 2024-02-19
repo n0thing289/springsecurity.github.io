@@ -37,7 +37,7 @@ public class TUser implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if(authorities == null){
+        if (authorities == null) {
             //
             authorities = new ArrayList<>();
             //
@@ -60,22 +60,22 @@ public class TUser implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return this.accountNonExpired == 1;
+        return this.accountNonExpired != null && this.accountNonExpired == 1;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return this.accountNonLocked == 1;
+        return this.accountNonLocked != null && this.accountNonLocked == 1;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return this.credentialsNonExpired == 1;
+        return this.credentialsNonExpired != null && this.credentialsNonExpired == 1;
     }
 
     @Override
     public boolean isEnabled() {
-        return this.enabled == 1;
+        return this.enabled != null && this.enabled == 1;
     }
 
     //
@@ -211,7 +211,33 @@ public class TUser implements UserDetails {
         return permissions;
     }
 
-    public void setPermissions(List<String> permissions) {
+    public TUser setPermissions(List<String> permissions) {
         this.permissions = permissions;
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return "TUser{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", nickName='" + nickName + '\'' +
+                ", password='" + password + '\'' +
+                ", status=" + status +
+                ", email='" + email + '\'' +
+                ", phonenumber='" + phonenumber + '\'' +
+                ", sex=" + sex +
+                ", avatar='" + avatar + '\'' +
+                ", userType=" + userType +
+                ", createBy=" + createBy +
+                ", createTime='" + createTime + '\'' +
+                ", delFlag=" + delFlag +
+                ", accountNonExpired=" + accountNonExpired +
+                ", accountNonLocked=" + accountNonLocked +
+                ", credentialsNonExpired=" + credentialsNonExpired +
+                ", enabled=" + enabled +
+                ", permissions=" + permissions +
+                ", authorities=" + authorities +
+                '}';
     }
 }

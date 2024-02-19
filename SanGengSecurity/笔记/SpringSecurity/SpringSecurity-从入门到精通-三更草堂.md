@@ -938,7 +938,7 @@ public class MapperTest {
     @Autowired
     private UserMapper userMapper;
 
-    @Test
+    @TestClass
     public void testUserMapper(){
         List<User> users = userMapper.selectList(null);
         System.out.println(users);
